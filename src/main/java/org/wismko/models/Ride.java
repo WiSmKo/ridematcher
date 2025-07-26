@@ -38,8 +38,8 @@ public class Ride {
         return completed;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void markComplete() {
+        this.completed = true;
     }
 
     public void setAssignedDriverId(String driverId) {

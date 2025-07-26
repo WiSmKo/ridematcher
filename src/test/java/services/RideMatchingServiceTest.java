@@ -30,6 +30,7 @@ public class RideMatchingServiceTest {
         this.rideMatchingService = new RideMatchingService();
 
         testRide = new Ride( "riderX", new Location( 7.0, 8.0 ));
+        testRide.setAssignedDriverId( "driverY" );
 
         Driver driverX = new Driver( "driverX", true, new Location( 10.0, 10.0 ) );
         Driver driverY = new Driver(  "driverY", false, new Location( 20.0, 20.0 ) );
@@ -85,7 +86,7 @@ public class RideMatchingServiceTest {
     public void completeRide(){
         String rideId = testRide.getId();
 
-        rideMatchingService.completeRide( rideId );
+        rideMatchingService.completeRide( rideId, new Location( 123.45, 234.56 ) );
 
         Ride ride = rideMatchingService.rideRegistry.get( rideId );
 

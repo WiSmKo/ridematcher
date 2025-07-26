@@ -30,8 +30,21 @@ public class RideMatchingService {
         return new MatchedRide( driver, ride );
     }
 
-    public void completeRide(String rideId){
+    public void completeRide(String rideId, Location rideEndlocation){
 
+        Ride ride = rideRegistry.get( rideId );
+        Driver driver = this.driverRegistry.get( ride.getAssignedDriverId() );
+
+        if(driver == null){
+            throw new IllegalArgumentException("Driver not found");
+        }
+
+        synchronized ( ride ) {
+            ride.markComplete();
+        }
+        synchronized ( driver ){
+            driver.registerAvailability( true, rideEndlocation );
+        }
     }
 
     public List<Driver> getAvailableDrivers(Location location){
