@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RideMatchingServiceTest {
 
-
     private RideMatchingService rideMatchingService;
 
     private Ride testRide;

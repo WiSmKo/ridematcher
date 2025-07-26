@@ -1,7 +1,9 @@
 package org.wismko.services;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import org.wismko.dtos.MatchedRide;
 import org.wismko.models.Driver;
@@ -47,8 +49,21 @@ public class RideMatchingService {
         }
     }
 
-    public List<Driver> getAvailableDrivers(Location location){
-        //todo: fetch closest driver - dummy data for compiling tests
-        return List.of(new Driver( "123", true, new Location( 123.123, 123.123 ) ));
+    public List<Driver> getAvailableDrivers(Location pickUpLocation){
+        return driverRegistry.values().stream().filter( Driver::isAvailable )
+            .sorted( Comparator.comparing( driver -> distance( driver.getLocation(), pickUpLocation ) ) )
+            .toList();
+    }
+
+    /**
+     * Calculates straight line Euclidean distance between two points
+     * @param a point a
+     * @param b point b
+     * @return distance
+     */
+    private double distance(Location a, Location b){
+        double dLat = a.latitude() - b.latitude();
+        double dLon = a.longitude() - b.longitude();
+        return Math.sqrt( dLat * dLat + dLon * dLon );
     }
 }
