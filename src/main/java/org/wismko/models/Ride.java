@@ -7,6 +7,7 @@ public class Ride {
     private final String id;
     private final String riderId;
     private final Location pickupLocation;
+    private String assignedDriverId;
     private boolean completed;
 
 
@@ -29,11 +30,19 @@ public class Ride {
         return pickupLocation;
     }
 
+    public String getAssignedDriverId() {
+        return assignedDriverId;
+    }
+
     public boolean isCompleted() {
         return completed;
     }
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public void setAssignedDriverId(String driverId) {
+        this.assignedDriverId = driverId;
     }
 }

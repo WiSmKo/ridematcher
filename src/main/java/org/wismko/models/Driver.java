@@ -6,9 +6,9 @@ public class Driver {
     private boolean available;
     private Location location;
 
-    public Driver(String id, boolean available, Location location) {
+    public Driver(String id, Location location) {
         this.id = id;
-        this.available = available;
+        this.available = true;
         this.location = location;
     }
 
