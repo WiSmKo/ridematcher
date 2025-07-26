@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.wismko.dtos.MatchedRide;
+import org.wismko.dtos.MatchedRideDto;
 import org.wismko.models.Driver;
 import org.wismko.models.Location;
 import org.wismko.models.Ride;
@@ -28,7 +28,7 @@ public class RideMatchingServiceTest {
     void setUp(){
         this.rideMatchingService = new RideMatchingService();
 
-        testRide = new Ride( "riderX", new Location( 7.0, 8.0 ));
+        testRide = new Ride( new Location( 7.0, 8.0 ));
         testRide.setAssignedDriverId( "driverY" );
 
         Driver driverX = new Driver( "driverX", true, new Location( 10.0, 10.0 ) );
@@ -70,13 +70,12 @@ public class RideMatchingServiceTest {
 
     @Test
     public void requestRide(){
-        Location pickupLocation = new Location( 5.0, 6.0 );
+        Location pickupLocation = new Location( 45.0, 46.0 );
 
-        MatchedRide result = rideMatchingService.requestRide( new Ride( "rider1", pickupLocation ));
+        MatchedRideDto result = rideMatchingService.requestRide( pickupLocation );
 
         assertEquals( "driverZ", result.driver().getId() );
         assertFalse( result.driver().isAvailable() );
-        assertEquals( "rider1", result.ride().getRiderId() );
         assertEquals( pickupLocation, result.ride().getPickupLocation() );
         assertEquals( rideMatchingService.rideRegistry.get( result.ride().getId() ).getAssignedDriverId(), result.driver().getId() );
     }

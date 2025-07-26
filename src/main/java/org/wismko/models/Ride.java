@@ -5,25 +5,19 @@ import java.util.UUID;
 public class Ride {
 
     private final String id;
-    private final String riderId;
     private final Location pickupLocation;
     private String assignedDriverId;
     private boolean completed;
 
 
-    public Ride(String riderId, Location pickupLocation) {
+    public Ride(Location pickupLocation) {
         this.id = UUID.randomUUID().toString();
-        this.riderId = riderId;
         this.pickupLocation = pickupLocation;
         this.completed = false;
     }
 
     public String getId() {
         return id;
-    }
-
-    public String getRiderId() {
-        return riderId;
     }
 
     public Location getPickupLocation() {
