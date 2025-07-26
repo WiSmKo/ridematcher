@@ -15,13 +15,17 @@ public class RideMatchingService {
 
 
     public void registerDriverAvailability(String driverId, boolean available, Location location){
+        Driver driver = driverRegistry.computeIfAbsent( driverId, id -> new Driver( driverId, available, location ) );
 
+        synchronized ( driver ){
+            driver.registerAvailability( available, location );
+        }
     }
 
     public MatchedRide requestRide(Ride ride){
 
         //todo: fetch closest driver - dummy data for compiling tests
-        Driver driver = new Driver( "123", new Location( 123.123, 123.123 ));
+        Driver driver = new Driver( "123", true, new Location( 123.123, 123.123 ));
 
         return new MatchedRide( driver, ride );
     }
@@ -32,6 +36,6 @@ public class RideMatchingService {
 
     public List<Driver> getAvailableDrivers(Location location){
         //todo: fetch closest driver - dummy data for compiling tests
-        return List.of(new Driver( "123", new Location( 123.123, 123.123 ) ));
+        return List.of(new Driver( "123", true, new Location( 123.123, 123.123 ) ));
     }
 }

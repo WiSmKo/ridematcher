@@ -31,10 +31,9 @@ public class RideMatchingServiceTest {
 
         testRide = new Ride( "riderX", new Location( 7.0, 8.0 ));
 
-        Driver driverX = new Driver( "driverX", new Location( 10.0, 10.0 ) );
-        Driver driverY = new Driver(  "driverY", new Location( 20.0, 20.0 ) );
-        driverY.registerAvailability( false, new Location(  20.0, 20.0) );
-        Driver driverZ = new Driver( "driverZ", new Location( 30.5, 30.5 ) );
+        Driver driverX = new Driver( "driverX", true, new Location( 10.0, 10.0 ) );
+        Driver driverY = new Driver(  "driverY", false, new Location( 20.0, 20.0 ) );
+        Driver driverZ = new Driver( "driverZ", true, new Location( 30.5, 30.5 ) );
 
         rideMatchingService.driverRegistry.put( driverX.getId(), driverX );
         rideMatchingService.driverRegistry.put( driverY.getId(), driverY );
